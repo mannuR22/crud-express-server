@@ -21,7 +21,8 @@
   "scripts": {
     "start": "node server.js",
     "test": "mocha",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "build": "babel src -d dist"
   }
   
 }
