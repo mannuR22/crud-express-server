@@ -61,6 +61,9 @@ const getBook = async (req, res) => {
         const db = await connectToDB();
         const books = db.collection('Books');
         const doc = await books.findOne({"bookId": bookId}, {projection: { _id: 0 }})
+        if(!doc){
+            return res.status(400).json({message: "No Entry exist for bookId: " + bookId})
+        }
         res.status(200).json(doc);
     }catch (error) {
         console.log(error);
@@ -78,7 +81,10 @@ const deleteBook = async (req, res) => {
     try{
         const db = await connectToDB();
         const books = db.collection('Books');
-        await books.deleteOne({"bookId": bookId})
+        const report = await books.deleteOne({"bookId": bookId})
+        if(report.deletedCount == 0){
+            return res.status(400).json({message: "No Entry Exist for bookId: " + bookId})
+        }
         res.status(200).json({message: `Successfully deleted books with bookId: ${bookId}`});
     }catch (error) {
         console.log(error);
