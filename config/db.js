@@ -1,19 +1,26 @@
 // db.js
 
-const { MongoClient } = require('mongodb');
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 // MongoDB URI for your local database
-const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017';
-
+// const uri = process.env.MONGODB_URI | 'mongodb://localhost:27017';
+const uri = "mongodb+srv://manishrana:XZxCSC2VNgCnMSuR@personaldb.ntldj.mongodb.net/?retryWrites=true&w=majority";
+console.log(uri)
 let cachedDb = null;
 
 async function connectToDatabase() {
   if (cachedDb) {
     return cachedDb;
   }
-
+  const client = new MongoClient(uri, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    }
+  });
   try {
-    const client = new MongoClient(uri);
+    
     await client.connect();
     const database = client.db('crudAppdb');
     cachedDb = database;

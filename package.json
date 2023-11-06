@@ -24,5 +24,4 @@
     "dev": "nodemon server.js",
     "build": "babel src -d dist"
   }
-  
 }
