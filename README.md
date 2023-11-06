@@ -60,8 +60,6 @@ items.
 
 
  ### Get Book Info:
-This API is used to update items in the existing List.
-If dublicate items is present in request body then it doesnt add them again to list.
 
 ```http
   GET {{serverUrl}}/api/books-service/get/book/:bookId
