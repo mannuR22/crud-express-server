@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 const utilty = require('../utility/utility')
-const connectToDB = require('../config/db')
+const connectToDB = require('../config/db');
+const { type } = require('os');
 
 const welcomeMessage = (req, res) => {
     res.json({ message: 'Welcome to the Express App!' });
@@ -85,7 +86,7 @@ const deleteBook = async (req, res) => {
         if(report.deletedCount == 0){
             return res.status(400).json({message: "No Entry Exist for bookId: " + bookId})
         }
-        res.status(200).json({message: `Successfully deleted books with bookId: ${bookId}`});
+        res.status(200).json({message: `Successfully deleted book with bookId: ${bookId}`});
     }catch (error) {
         console.log(error);
         res.status(500).json({ message: 'An error occurred while deleting data.',});
@@ -97,19 +98,28 @@ const updateBook = async (req, res) => {
     if( !bookId){
         return res.status(400).json({ message: 'Please include bookId in params.' });
     }
-    if (
-        !utilty.isKeyExistWithType("author", "string", req.body)
-        && !utilty.isKeyExistWithType("title", "string", req.body)
-        && !utilty.isKeyExistWithType("summary", "string", req.body)
-    ) {
-        return res.status(422).json({ message: "Incomplete request body, either all fields missing or defined with wrong types." })
-
-    }
+   
     let bookInfo = {}
 
-    if("author" in req.body) bookInfo.author = req.body.author;
-    if("title" in req.body) bookInfo.title = req.body.title;
-    if("summary" in req.body) bookInfo.summary = req.body.summary;
+    let isKeyExist = false;
+
+    if("author" in req.body) {
+        if(typeof(req.body["author"]) != "string") return res.status(422).json({message: "Wrong type for author field."});
+        bookInfo.author = req.body.author;
+        isKeyExist = true;
+    }
+    if("title" in req.body) {
+        if(typeof(req.body["title"]) != "string") return res.status(422).json({message: "Wrong type for title field."});
+        bookInfo.title = req.body.title;
+        isKeyExist = true;
+    }
+    if("summary" in req.body){
+        if(typeof(req.body["summary"]) != "string") return res.status(422).json({message: "Wrong type for summary field."});
+         bookInfo.summary = req.body.summary;
+         isKeyExist = true;
+        }
+
+   if(!isKeyExist)  return res.status(422).json({message: "No field specified in request body."});
 
     try{
         const db = await connectToDB();
