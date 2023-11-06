@@ -1,7 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 const utilty = require('../utility/utility')
 const connectToDB = require('../config/db');
-const { type } = require('os');
 
 const welcomeMessage = (req, res) => {
     res.json({ message: 'Welcome to the Express App!' });
