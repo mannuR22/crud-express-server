@@ -41,7 +41,6 @@ const getBooks = async (req, res) => {
     try{
         const db = await connectToDB();
         const books = db.collection('Books');
-        const projection = {"bookId": 1, "title": 1, "_id": 0, "author": 0, "summary": 0};
         const booksOut = await books.find({},{projection: { _id: 0, author: 0, summary: 0 }} ).toArray();
         
         res.status(200).json({books: booksOut});
@@ -92,7 +91,14 @@ const updateBook = async (req, res) => {
     if( !bookId){
         return res.status(400).json({ message: 'Please include bookId in params.' });
     }
+    if (
+        !utilty.isKeyExistWithType("author", "string", req.body)
+        && !utilty.isKeyExistWithType("title", "string", req.body)
+        && !utilty.isKeyExistWithType("summary", "string", req.body)
+    ) {
+        return res.status(422).json({ message: "Incomplete request body, either all fields missing or defined with wrong types." })
 
+    }
     let bookInfo = {}
 
     if("author" in req.body) bookInfo.author = req.body.author;
