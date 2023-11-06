@@ -1,18 +1,17 @@
 // db.js
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MONGODB_URI } = require('./environment');
+console.log(MONGODB_URI)
+// MongoDB URI for yourprocess.env.API_KEY local database
 
-// MongoDB URI for your local database
-const uri = process.env.MONGODB_URI | 'mongodb://localhost:27017';
-
-console.log(uri)
 let cachedDb = null;
 
 async function connectToDatabase() {
   if (cachedDb) {
     return cachedDb;
   }
-  const client = new MongoClient(uri, {
+  const client = new MongoClient(MONGODB_URI, {
     serverApi: {
       version: ServerApiVersion.v1,
       strict: true,

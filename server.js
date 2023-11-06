@@ -9,6 +9,7 @@ const { PORT } = require('./config/environment');
  //Database Handshake
 app.use(bodyParser.json());
 app.use('/api', bookRoutes);
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
