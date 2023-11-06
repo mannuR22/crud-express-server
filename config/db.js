@@ -3,8 +3,8 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 // MongoDB URI for your local database
-// const uri = process.env.MONGODB_URI | 'mongodb://localhost:27017';
-const uri = "mongodb+srv://manishrana:XZxCSC2VNgCnMSuR@personaldb.ntldj.mongodb.net/?retryWrites=true&w=majority";
+const uri = process.env.MONGODB_URI | 'mongodb://localhost:27017';
+
 console.log(uri)
 let cachedDb = null;
 
