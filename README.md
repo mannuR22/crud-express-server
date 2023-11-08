@@ -132,8 +132,6 @@ Only update specified field in requestBody, else remain unaffected.
 # Directory structure
 ```
 crude-express-server/
-│
-├── node_modules/           # Installed npm packages and dependencies
 |
 |
 ├── config/                 # Configuration files (e.g., database, environment variables)
@@ -150,9 +148,9 @@ crude-express-server/
 │
 ├── app.js                  # Express application setup
 │
-├── package.json            # NPM package file with project dependencies
+├── package.json            # Package file with project dependencies
 │
-├── package-lock.json       # Lock file for NPM packages
+├── yarn.lock               # Lock file for yarn packages
 │
 ├── .env                    # Environment-specific configuration
 │
