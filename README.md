@@ -22,7 +22,7 @@ yarn dev
  - Express library
  - Mongodb Atlas
  - Render (deploying)
- - Yarn (pakage manager)
+ - Yarn (package manager)
 
 
 ## API Reference
