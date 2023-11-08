@@ -5,6 +5,8 @@ Update, Delete) API(s) implimented using node/express that allows a user to mana
 Hence, API(s) includes endpoints for creating, reading, updating, and deleting
 items.
 
+### How to setup locally:
+
 #### For installing app packages, run following command in root directory of this project:
 ```
 yarn install
